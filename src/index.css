@@ -1,0 +1,10 @@
+@import "tailwindcss";
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    @apply bg-cyan-950 text-zinc-50 h-[200vh];
+
+}
