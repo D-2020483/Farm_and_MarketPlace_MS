@@ -7,6 +7,21 @@ html {
 }
 
 body {
-    @apply bg-gray-50 text-black ;
+    @apply bg-gray-100 text-black;
 
+}
+
+@keyframes fadeInSlideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-pop-up {
+  animation: fadeInSlideDown 0.7s ease-out forwards;
 }
