@@ -2,7 +2,7 @@ import React, { useState, useMemo } from "react";
 import { Plus, Sprout, Search, Filter, Pencil, Trash2 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import AddCrop from "@/modal/addcrop.jsx";
+import CreateCrop from "@/modal/createcrop.jsx";
 
 import {
   Select,
@@ -100,7 +100,7 @@ function AllCrops() {
             All Crops
           </h2>
         </div>
-        <AddCrop
+        <CreateCrop
           onAddCrop={(newCrop) =>
             setCrops([...crops, { id: Date.now(), ...newCrop }])
           }
