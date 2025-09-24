@@ -90,11 +90,7 @@ function Mycrops() {
             My Crops
           </h2>
         </div>
-        <AddCrop
-          onAddCrop={(newCrop) =>
-            setCrops([...crops, { id: Date.now(), ...newCrop }])
-          }
-        />
+        <AddCrop onAddCrop={addCrop} />
       </div>
       {/* Search and Filter Bar */}
       <Card className="bg-white shadow-sm rounded-lg border-0">
