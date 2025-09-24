@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Sprout, BarChart, ShoppingCart, LogOut, MapPin } from "lucide-react";
 import { Link } from "react-router-dom";
-import Mycrops from "@/pages/F_mycrops.jsx";
+import AllCrops from "@/pages/A_allcrops.jsx";
 
 function AdminDashboard() {
   return (
