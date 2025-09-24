@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from "react";
-import { Plus, Sprout, Search, Filter, Pencil, Trash2, Lock } from "lucide-react";
+import { Plus, Sprout, Search, Filter, Pencil, Trash2, Lock, Shield } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import AddCrop from "@/modal/addcrop.jsx";
@@ -12,6 +12,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useCrops } from "@/context/CropContext";
+import { Tooltip } from "@/components/ui/tooltip";
 
 function Mycrops() {
   const { getFarmerCrops, addCrop, updateCrop, deleteCrop } = useCrops();
@@ -25,10 +26,15 @@ function Mycrops() {
 
   //Delete crop
   const handleDelete = (id) => {
+    const crop = crops.find(c => c.id === id);
+    if (crop.isAdminCreated) {
+      alert("This crop was created by an admin and cannot be modified or deleted.");
+      return;
+    }
     try {
       deleteCrop(id, false); // false indicates farmer privileges
     } catch (error) {
-      alert("You cannot delete admin-created crops");
+      alert(error.message);
     }
   };
 
@@ -186,29 +192,35 @@ function Mycrops() {
                     </span>
                     <div className="flex gap-2">
                       {crop.isAdminCreated ? (
-                        // Show lock icon for admin-created crops
-                        <div className="p-1 rounded-md bg-gray-100 text-gray-400" title="Admin-created crop (cannot be modified)">
-                          <Lock size={16} />
-                        </div>
+                        // Show admin indicator for admin-created crops
+                        <Tooltip content="Admin-created crop (Cannot be modified)">
+                          <div className="flex gap-2 items-center px-2 py-1 rounded-md bg-purple-50">
+                            <Shield size={16} className="text-purple-600" />
+                            <span className="text-xs text-purple-600 font-medium">Admin Crop</span>
+                          </div>
+                        </Tooltip>
                       ) : (
+                        // Show edit and delete buttons for farmer-created crops
                         <>
-                          {/* Edit icon */}
-                          <button
-                            onClick={() => {
-                              setEditingCrop(crop);
-                              setIsUpdateOpen(true);
-                            }}
-                            className="p-1 rounded-md hover:bg-emerald-100 text-emerald-600 transition"
-                          >
-                            <Pencil size={16} />
-                          </button>
-                          {/* Delete icon */}
-                          <button
-                            onClick={() => handleDelete(crop.id)}
-                            className="p-1 rounded-md hover:bg-red-100 text-red-600 transition"
-                          >
-                            <Trash2 size={16} />
-                          </button>
+                          <Tooltip content="Edit crop">
+                            <button
+                              onClick={() => {
+                                setEditingCrop(crop);
+                                setIsUpdateOpen(true);
+                              }}
+                              className="p-1 rounded-md hover:bg-emerald-100 text-emerald-600 transition"
+                            >
+                              <Pencil size={16} />
+                            </button>
+                          </Tooltip>
+                          <Tooltip content="Delete crop">
+                            <button
+                              onClick={() => handleDelete(crop.id)}
+                              className="p-1 rounded-md hover:bg-red-100 text-red-600 transition"
+                            >
+                              <Trash2 size={16} />
+                            </button>
+                          </Tooltip>
                         </>
                       )}
                     </div>

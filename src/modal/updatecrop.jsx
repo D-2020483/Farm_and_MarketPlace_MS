@@ -21,7 +21,15 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 
 function UpdateCrop({ isOpen, onOpenChange, crop, onUpdate }) {
-   const [form, setForm] = useState({
+  // Prevent opening the modal for admin-created crops
+  useEffect(() => {
+    if (isOpen && crop?.isAdminCreated) {
+      alert("Cannot modify admin-created crops");
+      onOpenChange(false);
+    }
+  }, [isOpen, crop, onOpenChange]);
+
+  const [form, setForm] = useState({
     name: "",
     type: "Vegetables",
     quantity: "",
