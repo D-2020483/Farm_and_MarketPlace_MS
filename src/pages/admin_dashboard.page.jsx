@@ -58,7 +58,7 @@ function AdminDashboard() {
               </TabsTrigger>
             </TabsList>
           </Tabs>
-          <Mycrops />
+          <AllCrops />
         </div>
       </div>
     </div>

@@ -2,6 +2,7 @@ import React, { useState, useMemo } from "react";
 import { Plus, Sprout, Search, Filter, Pencil, Trash2 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import AddCrop from "@/modal/addcrop.jsx";
 
 import {
   Select,
@@ -15,6 +16,11 @@ function AllCrops() {
  
   const [searchTerm, setSearchTerm] = useState(""); //whats typed in search box
   const [filter, setFilter] = useState("all"); //current filter status
+
+  //Delete crop
+  const handleDelete = (id) => {
+    setCrops((prev) => prev.filter((crop) => crop.id !== id));
+  };
 
   {
     /* filter + search logic */
@@ -38,6 +44,21 @@ function AllCrops() {
       return matchesFilter && matchesSearch;
     });
   }, [searchTerm, filter, crops]);
+
+  const statusPill = (status) => {
+    switch (status) {
+      case "Planted":
+        return "bg-yellow-100 text-yellow-800";
+      case "Growing":
+        return "bg-emerald-100 text-emerald-800";
+      case "Ready to Harvest":
+        return "bg-blue-100 text-blue-800";
+      case "Harvested":
+        return "bg-gray-100 text-gray-800";
+      default:
+        return "bg-gray-100 text-gray-800";
+    }
+  };
 
   return (
     <div className="p-4 sm:p-6 min-h-screen bg-gray-200">
@@ -153,7 +174,7 @@ function AllCrops() {
                           setEditingCrop(crop);
                           setIsUpdateOpen(true);
                         }}
-                        className="p-1 rounded-md hover:bg-emerald-100 text-purple-600 transition"
+                        className="p-1 rounded-md hover:bg-emerald-100 text-emerald-600 transition"
                       >
                         <Pencil size={16} />
                       </button>
