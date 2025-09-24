@@ -20,7 +20,7 @@ export function CardGroup() {
               List crops, manage your farm, and connect with local buyers
             </p>
             <Button asChild className="bg-emerald-400 hover:bg-emerald-600">
-              <Link to="/farmer-login">Continue as Farmer</Link>
+              <Link to="/farmer-login">Get Started as Farmer</Link>
             </Button>
           </CardContent>
         </Card>
@@ -36,7 +36,7 @@ export function CardGroup() {
               Manage fresh, local produce and connect directly with farmers.
             </p>
             <Button asChild className="bg-blue-400 hover:bg-blue-600">
-              <Link to="/Buyer-login">Continue as Buyer</Link>
+              <Link to="/Buyer-login">Get Startedas Buyer</Link>
             </Button>
           </CardContent>
         </Card>
@@ -52,7 +52,7 @@ export function CardGroup() {
               Manage the platform and oversee all users and their profiles.
             </p>
             <Button asChild className="bg-purple-400 hover:bg-purple-600">
-              <Link to="/admin-login">Continue as Admin</Link>
+              <Link to="/admin-login">Get Startedas Admin</Link>
             </Button>
           </CardContent>
         </Card>
