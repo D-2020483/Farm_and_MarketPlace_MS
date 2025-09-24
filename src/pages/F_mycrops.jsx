@@ -15,14 +15,11 @@ import { useCrops } from "@/context/CropContext";
 import { Tooltip } from "@/components/ui/tooltip";
 
 function Mycrops() {
-  const { getFarmerCrops, addCrop, updateCrop, deleteCrop } = useCrops();
+  const { crops, addCrop, updateCrop, deleteCrop } = useCrops();
   const [searchTerm, setSearchTerm] = useState(""); //whats typed in search box
   const [filter, setFilter] = useState("all"); //current filter status
   const [editingCrop, setEditingCrop] = useState(null); //current crop being edited
   const [isUpdateOpen, setIsUpdateOpen] = useState(false); //modal open state
-
-  // Get crops including admin-created ones with edit/delete flags
-  const crops = getFarmerCrops();
 
   //Delete crop
   const handleDelete = (id) => {

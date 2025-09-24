@@ -44,14 +44,7 @@ export function CropProvider({ children }) {
   const getAllCrops = () => crops;
 
   // Get crops for farmer view (includes admin-created crops)
-  const getFarmerCrops = (farmerId) => {
-    return crops.map(crop => ({
-      ...crop,
-      // Disable editing for admin-created crops
-      canEdit: !crop.isAdminCreated,
-      canDelete: !crop.isAdminCreated
-    }));
-  };
+  const getFarmerCrops = () => crops;
 
   return (
     <CropContext.Provider value={{
