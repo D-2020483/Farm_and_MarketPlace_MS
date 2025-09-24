@@ -117,7 +117,7 @@ function AdminLogin() {
           <button
             type="submit"
             disabled={!username || !password}
-            className={`w-full py-3 font-semibold rounded-lg shadow-md transition-all duration-300
+            className={`w-full py-3 text-sm rounded-lg shadow-md transition-all duration-300
                  ${
                    !username || !password
                      ? "bg-gray-300 cursor-not-allowed"
