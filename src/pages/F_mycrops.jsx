@@ -191,9 +191,9 @@ function Mycrops() {
                       {crop.isAdminCreated ? (
                         // Show admin indicator for admin-created crops
                         <Tooltip content="Admin-created crop (Cannot be modified)">
-                          <div className="flex gap-2 items-center px-2 py-1 rounded-md bg-purple-50">
+                          <div className="flex gap-2 items-center px-3 py-1.5 rounded-full bg-purple-100 border border-purple-200 shadow-sm">
                             <Shield size={16} className="text-purple-600" />
-                            <span className="text-xs text-purple-600 font-medium">Admin Crop</span>
+                            <span className="text-xs text-purple-700 font-semibold">Admin Crop</span>
                           </div>
                         </Tooltip>
                       ) : (

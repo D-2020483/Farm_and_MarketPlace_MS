@@ -5,6 +5,7 @@ export const dummyCrops = [
     status: "Ready to Harvest",
     quantity: "500 kg",
     description: "Cherry tomatoes grown in greenhouse",
+    
   },
   {
     id: 2,
@@ -12,19 +13,22 @@ export const dummyCrops = [
     status: "Planted",
     quantity: "15 kg",
     description: "Fresh sweet basil for culinary use",
+    
   },
   {
     id: 3,
-    name: "Carrots",
+    name: "Premium Carrots",
     status: "Growing",
     quantity: "500 kg",
-    description: "Carrots from organic farm",
+    description: "High-yield carrots variety recommended by agricultural experts",
+    
   },
   {
     id: 4,
-    name: "Lettuce",
-    status: "Harvested",
+    name: "Hybrid Lettuce",
+    status: "Ready to Harvest",
     quantity: "15 kg",
-    description: "Fresh lettuce heads",
+    description: "Disease-resistant lettuce variety - Admin recommended",
+  
   },
 ];
