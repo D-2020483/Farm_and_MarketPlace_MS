@@ -1,5 +1,14 @@
 import React, { useState, useMemo } from "react";
-import { Plus, Sprout, Search, Filter, Pencil, Trash2, Lock, Shield } from "lucide-react";
+import {
+  Plus,
+  Sprout,
+  Search,
+  Filter,
+  Pencil,
+  Trash2,
+  Lock,
+  Shield,
+} from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import AddCrop from "@/modal/addcrop.jsx";
@@ -13,6 +22,7 @@ import {
 } from "@/components/ui/select";
 import { useCrops } from "@/context/CropContext";
 import { Tooltip } from "@/components/ui/tooltip";
+import { TooltipProvider } from "@radix-ui/react-tooltip";
 
 function Mycrops() {
   const { crops, addCrop, updateCrop, deleteCrop } = useCrops();
@@ -21,11 +31,13 @@ function Mycrops() {
   const [editingCrop, setEditingCrop] = useState(null); //current crop being edited
   const [isUpdateOpen, setIsUpdateOpen] = useState(false); //modal open state
 
-  //Delete crop
+  //Delete crop( farmer cannot delete admin-created crops)
   const handleDelete = (id) => {
-    const crop = crops.find(c => c.id === id);
+    const crop = crops.find((c) => c.id === id);
     if (crop.isAdminCreated) {
-      alert("This crop was created by an admin and cannot be modified or deleted.");
+      alert(
+        "This crop was created by an admin and cannot be modified or deleted."
+      );
       return;
     }
     try {
@@ -86,6 +98,21 @@ function Mycrops() {
     }
   };
 
+  // Show admin indicator for admin-created crops
+  const handleEditClick = (crop) => {
+    if (crop.isAdminCreated) {
+      alert("This crop was created by an admin and cannot be modified.");
+      return;
+    }
+    setEditingCrop(crop);
+    setIsUpdateOpen(true);
+  };
+
+  // Show admin indicator for admin-created crops
+  const handleAddCrop = (crop) => {
+    addCrop(cropData, false); // false indicates farmer privileges
+  };
+
   return (
     <div className="p-4 sm:p-6 min-h-screen bg-gray-200">
       <div className="flex flex-col md:flex-row justify-between md:items-center mb-6 gap-4">
@@ -95,7 +122,7 @@ function Mycrops() {
             My Crops
           </h2>
         </div>
-        <AddCrop onAddCrop={addCrop} />
+        <AddCrop onAddCrop={handleAddCrop} />
       </div>
       {/* Search and Filter Bar */}
       <Card className="bg-white shadow-sm rounded-lg border-0">
@@ -178,8 +205,15 @@ function Mycrops() {
                     <p className="text-sm mt-2 text-gray-600">
                       Quantity: {crop.quantity}
                     </p>
+                    {crop.isAdminCreated && (
+                      <div className="mt-2">
+                        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
+                          <Shield className="w-3 h-3 mr-1" />
+                          Admin Recommended
+                        </span>
+                      </div>
+                    )}
                   </div>
-
                   {/* status pill */}
                   <div className="flex flex-col items-end gap-2">
                     <span
@@ -192,34 +226,54 @@ function Mycrops() {
                     <div className="flex gap-2">
                       {crop.isAdminCreated ? (
                         // Show admin indicator for admin-created crops
-                        <Tooltip content="Admin-created crop (Cannot be modified)">
-                          <div className="flex gap-2 items-center px-3 py-1.5 rounded-full bg-purple-100 border border-purple-200 shadow-sm">
-                            <Shield size={16} className="text-purple-600" />
-                            <span className="text-xs text-purple-700 font-semibold">Admin Crop</span>
-                          </div>
-                        </Tooltip>
+                        <TooltipProvider>
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <div className="flex gap-2 items-center px-3 py-1.5 rounded-full bg-purple-50 border border-purple-200">
+                                <Shield size={14} className="text-purple-500" />
+                                <span className="text-xs text-purple-500 font-medium">
+                                  Protected
+                                </span>
+                              </div>
+                            </TooltipTrigger>
+                            <TooltipContent>
+                              <p>Admin-created crop (Cannot be modified)</p>
+                            </TooltipContent>
+                          </Tooltip>
+                        </TooltipProvider>
                       ) : (
                         // Show edit and delete buttons for farmer-created crops
                         <>
-                          <Tooltip content="Edit crop">
-                            <button
-                              onClick={() => {
-                                setEditingCrop(crop);
-                                setIsUpdateOpen(true);
-                              }}
-                              className="p-1 rounded-md hover:bg-emerald-100 text-emerald-600 transition"
-                            >
-                              <Pencil size={16} />
-                            </button>
-                          </Tooltip>
-                          <Tooltip content="Delete crop">
-                            <button
-                              onClick={() => handleDelete(crop.id)}
-                              className="p-1 rounded-md hover:bg-red-100 text-red-600 transition"
-                            >
-                              <Trash2 size={16} />
-                            </button>
-                          </Tooltip>
+                          <TooltipProvider>
+                            <Tooltip>
+                              <TooltipTrigger asChild>
+                                <button
+                                  onClick={() => handleEditClick(crop)}
+                                  className="p-1 rounded-md hover:bg-emerald-100 text-emerald-600 transition"
+                                >
+                                  <Pencil size={16} />
+                                </button>
+                              </TooltipTrigger>
+                              <TooltipContent>
+                                <p>Edit crop</p>
+                              </TooltipContent>
+                            </Tooltip>
+                          </TooltipProvider>
+                          <TooltipProvider>
+                            <Tooltip>
+                              <TooltipTrigger asChild>
+                                <button
+                                  onClick={() => handleDelete(crop.id)}
+                                  className="p-1 rounded-md hover:bg-red-100 text-red-600 transition"
+                                >
+                                  <Trash2 size={16} />
+                                </button>
+                              </TooltipTrigger>
+                              <TooltipContent>
+                                <p>Delete crop</p>
+                              </TooltipContent>
+                            </Tooltip>
+                          </TooltipProvider>
                         </>
                       )}
                     </div>
@@ -230,6 +284,7 @@ function Mycrops() {
           ))
         )}
       </div>
+
       <UpdateCrop
         isOpen={isUpdateOpen}
         onOpenChange={(open) => {

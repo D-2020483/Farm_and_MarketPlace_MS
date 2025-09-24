@@ -65,16 +65,21 @@ function AllCrops() {
     }
   };
 
+  // Show admin indicator for admin-created crops
+  const handleCreateCrop = (cropData) => {
+    addCrop(cropData, true); // true indicates admin privileges
+  };
+
   return (
     <div className="p-4 sm:p-6 min-h-screen bg-gray-200">
       <div className="flex flex-col md:flex-row justify-between md:items-center mb-6 gap-4">
         <div className="flex items-center gap-2 text-purple-500 font-semibold">
           <Sprout className="h-6 w-6 sm:h-7 sm:w-7" />
           <h2 className="text-lg sm:text-xl md:text-2xl text-purple-500">
-            All Crops
+            All Crops Management
           </h2>
         </div>
-        <CreateCrop onAddCrop={addCrop} />
+        <CreateCrop onAddCrop={handleCreateCrop} />
       </div>
       {/* Search and Filter Bar */}
       <Card className="bg-white shadow-sm rounded-lg border-0">
@@ -157,6 +162,13 @@ function AllCrops() {
                     <p className="text-sm mt-2 text-gray-600">
                       Quantity: {crop.quantity}
                     </p>
+                     {crop.isAdminCreated && (
+                      <div className="mt-2">
+                        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
+                          Admin Created
+                        </span>
+                      </div>
+                    )}
                   </div>
 
                   {/* status pill */}

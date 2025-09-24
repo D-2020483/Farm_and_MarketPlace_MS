@@ -1,7 +1,6 @@
 import { Input } from "@/components/ui/input";
 import React, { useState } from "react";
 import { Plus } from "lucide-react";
-import { useCrops } from "@/context/CropContext";
 import {
   Dialog,
   DialogTrigger,
@@ -220,12 +219,14 @@ function AddCrop({ onAddCrop }) {
           <DialogClose asChild>
             <Button className="bg-gray-400 hover:bg-gray-600">Cancel</Button>
           </DialogClose>
-          <Button
-            onClick={handleSubmit}
-            className="bg-emerald-400 hover:bg-emerald-600"
-          >
-            Create Crop
-          </Button>
+          <DialogClose asChild>
+            <Button
+              onClick={handleSubmit}
+              className="bg-emerald-500 hover:bg-emerald-600 text-white"
+            >
+              Add Crop
+            </Button>
+          </DialogClose>
         </div>
       </DialogContent>
     </Dialog>

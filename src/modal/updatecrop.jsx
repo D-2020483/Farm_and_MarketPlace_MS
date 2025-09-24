@@ -66,10 +66,11 @@ function UpdateCrop({ isOpen, onOpenChange, crop, onUpdate }) {
     });
   }, [crop]);
 
-  const handleChange = (e) =>
-    setForm((p) => ({ ...p, [e.target.name]: e.target.value }));
+  const handleChange = (field, value) =>{
+    setForm((prev) => ({ ...prev, [field]: value }));
+  };
 
-  const submit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     if (!form.name.trim()) {
       alert("Please enter a crop name");
@@ -104,7 +105,7 @@ function UpdateCrop({ isOpen, onOpenChange, crop, onUpdate }) {
             Edit the details of your crop and save the changes.
           </DialogDescription>
         </DialogHeader>
-        <form onSubmit={submit}>
+        <form onSubmit={handleSubmit}>
         <div className="grid gap-4 py-4">
           {/* Crop Name & Type */}
           <div className="grid sm:grid-cols-2 gap-4">
@@ -116,7 +117,7 @@ function UpdateCrop({ isOpen, onOpenChange, crop, onUpdate }) {
                 name="name"
                 placeholder=" Crop Name (e.g., organic tomatoes)"
                 value={form.name}
-                onChange={handleChange}
+                onChange={(e) => handleChange(e.target.name, e.target.value)}
                 className="w-full pl-10 pr-4 py-2 border border-gray-300 text-gray-700 rounded-md shadow-sm focus:ring-2 focus:ring-emerald-500 focus:outline-none bg-white"
               />
             </div>
@@ -128,7 +129,7 @@ function UpdateCrop({ isOpen, onOpenChange, crop, onUpdate }) {
                 name="type"
                 placeholder="Crop Type (e.g., vegetable)"
                 value={form.type}
-                onChange= {handleChange}
+                onChange={(e) => handleChange(e.target.name, e.target.value)}
                 className="w-full pl-10 pr-4 py-2 border border-gray-300 text-gray-700 rounded-md shadow-sm focus:ring-2 focus:ring-emerald-500 focus:outline-none bg-white"
               />
             </div>
@@ -145,7 +146,7 @@ function UpdateCrop({ isOpen, onOpenChange, crop, onUpdate }) {
                 type="number"
                 placeholder="e.g., 500"
                 value={form.quantity}
-                onChange= {handleChange}
+                onChange= {(e) => handleChange(e.target.name, e.target.value)}
                 className="w-full pl-10 pr-4 py-2 border border-gray-300 text-gray-700 rounded-md shadow-sm focus:ring-2 focus:ring-emerald-500 focus:outline-none bg-white"
               />
             </div>
@@ -156,7 +157,7 @@ function UpdateCrop({ isOpen, onOpenChange, crop, onUpdate }) {
               <Select
                 name="unit"
                 value={form.unit}
-                onValueChange={(value) => setForm((p) => ({...p, unit: value}))}
+                onValueChange={(value) => handleChange("unit", value)}
               >
                 <SelectTrigger className="w-full bg-white pl-10 pr-4 py-2 border border-gray-300 text-gray-700 rounded-md shadow-sm focus:ring-2 focus:ring-emerald-500 focus:outline-none">
                   <SelectValue placeholder="Select Unit" />
@@ -184,7 +185,7 @@ function UpdateCrop({ isOpen, onOpenChange, crop, onUpdate }) {
               <Select
                 name="status"
                 value={form.status}
-                onValueChange={(value) => setForm((p) => ({...p, status: value}))}
+                onValueChange={(value) => handleChange("status", value)}
               >
                 <SelectTrigger className="w-full bg-white pl-10 pr-4 py-2 border border-gray-300 text-gray-700 rounded-md shadow-sm focus:ring-2 focus:ring-emerald-500 focus:outline-none">
                   <SelectValue placeholder="Select Status" />
@@ -217,7 +218,7 @@ function UpdateCrop({ isOpen, onOpenChange, crop, onUpdate }) {
                 name="plantedDate"
                 type="date"
                 value={form.plantedDate}
-                onChange= {handleChange}
+                onChange= {(e) => handleChange("plantedDate", e.target.value)}
                 className="w-full pl-10 pr-4 py-2 border border-gray-300 text-gray-700 rounded-md shadow-sm focus:ring-2 focus:ring-emerald-500 focus:outline-none bg-white"
               />
             </div>
@@ -229,7 +230,7 @@ function UpdateCrop({ isOpen, onOpenChange, crop, onUpdate }) {
                 name="expectedHarvestDate"
                 type="date"
                 value={form.expectedHarvestDate}
-                onChange={handleChange}
+                 onChange={(e) => handleChange("expectedHarvestDate", e.target.value)}
                 className="w-full pl-10 pr-4 py-2 border border-gray-300 text-gray-700 rounded-md shadow-sm focus:ring-2 focus:ring-emerald-500 focus:outline-none bg-white"
               />
             </div>
@@ -241,7 +242,7 @@ function UpdateCrop({ isOpen, onOpenChange, crop, onUpdate }) {
                 name="description"
                 placeholder="Optional notes about the crop..."
                 value={form.description}
-                onChange={handleChange}
+                onChange={(e) => handleChange("description", e.target.value)}
                 className="w-full pl-10 pr-4 py-2 border border-gray-300 text-gray-700 rounded-md shadow-sm focus:ring-2 focus:ring-emerald-500 focus:outline-none bg-white"
               />
             </div>
