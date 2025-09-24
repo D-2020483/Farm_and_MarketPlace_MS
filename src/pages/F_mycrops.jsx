@@ -76,12 +76,14 @@ function Mycrops() {
   {
     /* Update Crop Modal */
   }
-  const handleUpdateCrop = (UpdateCrop) => {
-    setCrops((prev) =>
-      prev.map((c) => (c.id === UpdateCrop.id ? UpdateCrop : c))
-    );
-    setIsUpdateOpen(false);
-    setEditingCrop(null);
+  const handleUpdateCrop = (cropToUpdate) => {
+    try {
+      updateCrop(cropToUpdate);
+      setIsUpdateOpen(false);
+      setEditingCrop(null);
+    } catch (error) {
+      alert(error.message);
+    }
   };
 
   return (
