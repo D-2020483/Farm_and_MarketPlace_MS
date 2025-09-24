@@ -21,8 +21,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useCrops } from "@/context/CropContext";
-import { Tooltip } from "@/components/ui/tooltip";
-import { TooltipProvider } from "@radix-ui/react-tooltip";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 function Mycrops() {
   const { crops, addCrop, updateCrop, deleteCrop } = useCrops();
