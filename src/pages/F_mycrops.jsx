@@ -108,7 +108,7 @@ function Mycrops() {
   };
 
   // Show admin indicator for admin-created crops
-  const handleAddCrop = (crop) => {
+  const handleAddCrop = (cropData) => {
     addCrop(cropData, false); // false indicates farmer privileges
   };
 
@@ -235,9 +235,6 @@ function Mycrops() {
                                 </span>
                               </div>
                             </TooltipTrigger>
-                            <TooltipContent>
-                              <p>Admin-created crop (Cannot be modified)</p>
-                            </TooltipContent>
                           </Tooltip>
                         </TooltipProvider>
                       ) : (
@@ -253,9 +250,6 @@ function Mycrops() {
                                   <Pencil size={16} />
                                 </button>
                               </TooltipTrigger>
-                              <TooltipContent>
-                                <p>Edit crop</p>
-                              </TooltipContent>
                             </Tooltip>
                           </TooltipProvider>
                           <TooltipProvider>
@@ -268,9 +262,6 @@ function Mycrops() {
                                   <Trash2 size={16} />
                                 </button>
                               </TooltipTrigger>
-                              <TooltipContent>
-                                <p>Delete crop</p>
-                              </TooltipContent>
                             </Tooltip>
                           </TooltipProvider>
                         </>
