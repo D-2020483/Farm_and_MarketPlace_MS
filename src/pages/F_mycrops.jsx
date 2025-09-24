@@ -78,7 +78,7 @@ function Mycrops() {
   }
   const handleUpdateCrop = (cropToUpdate) => {
     try {
-      updateCrop(cropToUpdate);
+      updateCrop(cropToUpdate.id, cropToUpdate);
       setIsUpdateOpen(false);
       setEditingCrop(null);
     } catch (error) {

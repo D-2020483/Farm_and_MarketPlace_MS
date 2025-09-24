@@ -30,7 +30,7 @@ function AddCrop({ onAddCrop }) {
     status: "",
     plantedDate: "",
     expectedHarvestDate: "",
-    description: "", // Fix typo in field name
+    discription: "",
   });
 
   const handleChange = (field, value) => {
@@ -42,21 +42,7 @@ function AddCrop({ onAddCrop }) {
       alert("Please fill all the fields");
       return;
     }
-    
-    // Create the crop data with all necessary fields
-    const cropData = {
-      ...form,
-      isAdminCreated: false,
-      id: Date.now(),
-      description: form.description
-    };
-    
-    try {
-      onAddCrop(cropData);
-    } catch (error) {
-      alert("Failed to add crop: " + error.message);
-      return;
-    }
+    onAddCrop(form);
     setForm({
       name: "",
       type: "",
@@ -65,7 +51,7 @@ function AddCrop({ onAddCrop }) {
       status: "",
       plantedDate: "",
       expectedHarvestDate: "",
-      description: "", // Fix typo in field name
+      discription: "",
     });
   };
 
@@ -221,8 +207,8 @@ function AddCrop({ onAddCrop }) {
               </label>
           <Textarea
             placeholder="Optional notes about the crop..."
-            value={form.description}
-            onChange={(e) => handleChange("description", e.target.value)}
+            value={form.discription}
+            onChange={(e) => handleChange("discription", e.target.value)}
             className="w-full pl-10 pr-4 py-2 border border-gray-300 text-gray-700 rounded-md shadow-sm focus:ring-2 focus:ring-emerald-400 focus:outline-none bg-white"
           />
         </div>

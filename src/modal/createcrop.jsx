@@ -1,7 +1,6 @@
 import { Input } from "@/components/ui/input";
 import React, { useState } from "react";
 import { Plus } from "lucide-react";
-import { useCrops } from "@/context/CropContext";
 import {
   Dialog,
   DialogTrigger,
@@ -42,12 +41,7 @@ function CreateCrop({ onAddCrop }) {
       alert("Please fill all the fields");
       return;
     }
-    // Add isAdminCreated flag for admin-created crops
-    const cropData = {
-      ...form,
-      isAdminCreated: true // Mark as admin-created
-    };
-    onAddCrop(cropData);
+    onAddCrop(form);
     setForm({
       name: "",
       type: "",
