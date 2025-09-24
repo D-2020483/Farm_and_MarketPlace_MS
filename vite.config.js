@@ -10,5 +10,13 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
+  optimizeDeps: {
+    include: ['@radix-ui/react-tooltip']
+  },
+  build: {
+    commonjsOptions: {
+      include: [/@radix-ui\/react-tooltip/, /node_modules/]
+    }
+  },
   base: process.env.VITE_BASE_PATH || "/Farm_and_MarketPlace_MS",
 })
