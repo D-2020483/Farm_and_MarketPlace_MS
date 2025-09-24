@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from "react";
-import { Plus, Sprout, Search, Filter, Pencil, Trash2 } from "lucide-react";
+import { Plus, Sprout, Search, Filter, Pencil, Trash2, Lock } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import AddCrop from "@/modal/addcrop.jsx";
@@ -11,47 +11,25 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useCrops } from "@/context/CropContext";
 
 function Mycrops() {
-  //Dummy Data
-  const [crops, setCrops] = useState([
-    {
-      id: 1,
-      name: "Organic Tomatoes",
-      status: "Ready to Harvest",
-      quantity: "500 kg",
-      description: "Cherry tomatoes grown in greenhouse",
-    },
-    {
-      id: 2,
-      name: "Basil Herbs",
-      status: "Planted",
-      quantity: "15 kg",
-      description: "Fresh sweet basil for culinary use",
-    },
-    {
-      id: 3,
-      name: "Carrots",
-      status: "Growing",
-      quantity: "500 kg",
-      description: "Carrots from organic farm",
-    },
-    {
-      id: 4,
-      name: "Lettuce",
-      status: "Harvested",
-      quantity: "15 kg",
-      description: "Fresh lettuce heads",
-    },
-  ]);
+  const { getFarmerCrops, addCrop, updateCrop, deleteCrop } = useCrops();
   const [searchTerm, setSearchTerm] = useState(""); //whats typed in search box
   const [filter, setFilter] = useState("all"); //current filter status
   const [editingCrop, setEditingCrop] = useState(null); //current crop being edited
   const [isUpdateOpen, setIsUpdateOpen] = useState(false); //modal open state
 
+  // Get crops including admin-created ones with edit/delete flags
+  const crops = getFarmerCrops();
+
   //Delete crop
   const handleDelete = (id) => {
-    setCrops((prev) => prev.filter((crop) => crop.id !== id));
+    try {
+      deleteCrop(id, false); // false indicates farmer privileges
+    } catch (error) {
+      alert("You cannot delete admin-created crops");
+    }
   };
 
   {
@@ -211,23 +189,32 @@ function Mycrops() {
                       {crop.status}
                     </span>
                     <div className="flex gap-2">
-                      {/* Edit icon */}
-                      <button
-                        onClick={() => {
-                          setEditingCrop(crop);
-                          setIsUpdateOpen(true);
-                        }}
-                        className="p-1 rounded-md hover:bg-emerald-100 text-emerald-600 transition"
-                      >
-                        <Pencil size={16} />
-                      </button>
-                      {/* Delete icon */}
-                      <button
-                        onClick={() => handleDelete(crop.id)}
-                        className="p-1 rounded-md hover:bg-red-100 text-red-600 transition"
-                      >
-                        <Trash2 size={16} />
-                      </button>
+                      {crop.isAdminCreated ? (
+                        // Show lock icon for admin-created crops
+                        <div className="p-1 rounded-md bg-gray-100 text-gray-400" title="Admin-created crop (cannot be modified)">
+                          <Lock size={16} />
+                        </div>
+                      ) : (
+                        <>
+                          {/* Edit icon */}
+                          <button
+                            onClick={() => {
+                              setEditingCrop(crop);
+                              setIsUpdateOpen(true);
+                            }}
+                            className="p-1 rounded-md hover:bg-emerald-100 text-emerald-600 transition"
+                          >
+                            <Pencil size={16} />
+                          </button>
+                          {/* Delete icon */}
+                          <button
+                            onClick={() => handleDelete(crop.id)}
+                            className="p-1 rounded-md hover:bg-red-100 text-red-600 transition"
+                          >
+                            <Trash2 size={16} />
+                          </button>
+                        </>
+                      )}
                     </div>
                   </div>
                 </div>

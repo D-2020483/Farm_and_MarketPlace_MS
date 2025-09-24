@@ -125,10 +125,18 @@ function AddCrop({ onAddCrop }) {
                   <SelectValue placeholder="Select Unit" />
                 </SelectTrigger>
                 <SelectContent className="bg-white border border-gray-200">
-                  <SelectItem value="Kilograms">Kilograms</SelectItem>
-                  <SelectItem value="Pounds">Pounds</SelectItem>
-                  <SelectItem value="Bushels">Bushels</SelectItem>
-                  <SelectItem value="Pieces">Pieces</SelectItem>
+                  <SelectItem 
+                  value="Kilograms"
+                  className="bg-white text-gray-700 hover:bg-emerald-500">Kilograms</SelectItem>
+                  <SelectItem 
+                  value="Pounds"
+                  className="bg-white text-gray-700 hover:bg-emerald-500">Pounds</SelectItem>
+                  <SelectItem 
+                  value="Bushels"
+                  className="bg-white text-gray-700 hover:bg-emerald-500">Bushels</SelectItem>
+                  <SelectItem 
+                  value="Pieces"
+                  className="bg-white text-gray-700 hover:bg-emerald-500">Pieces</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -146,12 +154,20 @@ function AddCrop({ onAddCrop }) {
                   <SelectValue placeholder="Select Status" />
                 </SelectTrigger>
                 <SelectContent className="bg-white border border-gray-200">
-                  <SelectItem value="Planted">Planted</SelectItem>
-                  <SelectItem value="Growing">Growing</SelectItem>
-                  <SelectItem value="Ready to Harvest">
+                  <SelectItem 
+                  value="Planted"
+                  className="bg-white text-gray-700 hover:bg-emerald-500">Planted</SelectItem>
+                  <SelectItem 
+                  value="Growing"
+                  className="bg-white text-gray-700 hover:bg-emerald-500">Growing</SelectItem>
+                  <SelectItem 
+                  value="Ready to Harvest"
+                  className="bg-white text-gray-700 hover:bg-emerald-500">
                     Ready to Harvest
                   </SelectItem>
-                  <SelectItem value="Harvested">Harvested</SelectItem>
+                  <SelectItem 
+                  value="Harvested"
+                  className="bg-white text-gray-700 hover:bg-emerald-500">Harvested</SelectItem>
                 </SelectContent>
               </Select>
             </div>

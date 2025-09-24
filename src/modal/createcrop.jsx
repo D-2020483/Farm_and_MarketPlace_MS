@@ -1,6 +1,7 @@
 import { Input } from "@/components/ui/input";
 import React, { useState } from "react";
 import { Plus } from "lucide-react";
+import { useCrops } from "@/context/CropContext";
 import {
   Dialog,
   DialogTrigger,
@@ -41,7 +42,12 @@ function CreateCrop({ onAddCrop }) {
       alert("Please fill all the fields");
       return;
     }
-    onAddCrop(form);
+    // Add isAdminCreated flag for admin-created crops
+    const cropData = {
+      ...form,
+      isAdminCreated: true // Mark as admin-created
+    };
+    onAddCrop(cropData);
     setForm({
       name: "",
       type: "",
@@ -66,7 +72,7 @@ function CreateCrop({ onAddCrop }) {
         <DialogHeader className="hidden sm:block">
           <DialogTitle className="text-purple-500">Create New Crop</DialogTitle>
           <DialogDescription>
-            Enter the details for your new crop to start tracking its progress.
+            Create a new crop to start tracking its progress.
           </DialogDescription>
         </DialogHeader>
 
@@ -221,7 +227,7 @@ function CreateCrop({ onAddCrop }) {
           </DialogClose>
           <Button
             onClick={handleSubmit}
-            className="bg-emerald-400 hover:bg-emerald-600"
+            className="bg-purple-400 hover:bg-purple-600"
           >
             Create Crop
           </Button>

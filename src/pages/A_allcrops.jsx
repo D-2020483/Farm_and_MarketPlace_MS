@@ -3,6 +3,7 @@ import { Plus, Sprout, Search, Filter, Pencil, Trash2 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import CreateCrop from "@/modal/createcrop.jsx";
+import { useCrops } from "@/context/CropContext";
 
 import {
   Select,
@@ -13,44 +14,17 @@ import {
 } from "@/components/ui/select";
 
 function AllCrops() {
-  //Dummy Data
-  const [crops, setCrops] = useState([
-    {
-      id: 1,
-      name: "Organic Tomatoes",
-      status: "Ready to Harvest",
-      quantity: "500 kg",
-      description: "Cherry tomatoes grown in greenhouse",
-    },
-    {
-      id: 2,
-      name: "Basil Herbs",
-      status: "Planted",
-      quantity: "15 kg",
-      description: "Fresh sweet basil for culinary use",
-    },
-    {
-      id: 3,
-      name: "Carrots",
-      status: "Growing",
-      quantity: "500 kg",
-      description: "Carrots from organic farm",
-    },
-    {
-      id: 4,
-      name: "Lettuce",
-      status: "Harvested",
-      quantity: "15 kg",
-      description: "Fresh lettuce heads",
-    },
-  ]);
-
   const [searchTerm, setSearchTerm] = useState(""); //whats typed in search box
   const [filter, setFilter] = useState("all"); //current filter status
+  const { crops, addCrop, deleteCrop } = useCrops();
 
-  //Delete crop
+  //Delete crop with admin privileges
   const handleDelete = (id) => {
-    setCrops((prev) => prev.filter((crop) => crop.id !== id));
+    try {
+      deleteCrop(id, true); // true indicates admin privileges
+    } catch (error) {
+      alert(error.message);
+    }
   };
 
   {
@@ -100,11 +74,7 @@ function AllCrops() {
             All Crops
           </h2>
         </div>
-        <CreateCrop
-          onAddCrop={(newCrop) =>
-            setCrops([...crops, { id: Date.now(), ...newCrop }])
-          }
-        />
+        <CreateCrop onAddCrop={addCrop} />
       </div>
       {/* Search and Filter Bar */}
       <Card className="bg-white shadow-sm rounded-lg border-0">
@@ -205,7 +175,7 @@ function AllCrops() {
                           setEditingCrop(crop);
                           setIsUpdateOpen(true);
                         }}
-                        className="p-1 rounded-md hover:bg-emerald-100 text-emerald-600 transition"
+                        className="p-1 rounded-md hover:bg-purple-100 text-purple-600 transition"
                       >
                         <Pencil size={16} />
                       </button>
