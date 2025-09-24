@@ -5,7 +5,7 @@ import { Sprout, BarChart, ShoppingCart, LogOut, MapPin } from "lucide-react";
 import { Link } from "react-router-dom";
 import Mycrops from "@/pages/F_mycrops.jsx";
 
-function farmerDashboard() {
+function AdminDashboard() {
   const crops = [
     {
       name: "Organic Tomatoes",
@@ -89,4 +89,4 @@ function farmerDashboard() {
   );
 }
 
-export default farmerDashboard;
+export default AdminDashboard;
