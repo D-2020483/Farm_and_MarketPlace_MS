@@ -121,7 +121,7 @@ function Mycrops() {
             My Crops
           </h2>
         </div>
-        <AddCrop onAddCrop={handleAddCrop} />
+        <AddCrop onAddCrop={data => addCrop (data, true)} />
       </div>
       {/* Search and Filter Bar */}
       <Card className="bg-white shadow-sm rounded-lg border-0">

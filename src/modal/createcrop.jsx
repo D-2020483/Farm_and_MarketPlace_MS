@@ -20,16 +20,16 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 
-function CreateCrop({ onAddCrop }) {
+function CreateCrop({ onAddCrop , isAdmin = false}) {
   const [form, setForm] = useState({
     name: "",
     type: "",
     quantity: "",
-    unit: "",
+    unit: "Kilograms",
     status: "",
     plantedDate: "",
     expectedHarvestDate: "",
-    discription: "",
+    description: "",
   });
 
   const handleChange = (field, value) => {
@@ -41,12 +41,12 @@ function CreateCrop({ onAddCrop }) {
       alert("Please fill all the fields");
       return;
     }
-    onAddCrop(form);
+    onAddCrop(form , isAdmin);
     setForm({
       name: "",
       type: "",
       quantity: "",
-      unit: "kg",
+      unit: "Kilograms",
       status: "",
       plantedDate: "",
       expectedHarvestDate: "",
@@ -77,24 +77,24 @@ function CreateCrop({ onAddCrop }) {
               <label className="text-sm font-medium text-gray-600 mb-1">
                 Crop Name
               </label>
-              <Input
-                placeholder="Crop Name (e.g., organic tomatoes)"
-                value={form.name}
-                onChange={(e) => handleChange("name", e.target.value)}
-                className="w-full pl-10 pr-4 py-2 border border-gray-300 text-gray-700 rounded-md shadow-sm focus:ring-2 focus:ring-purple-400 focus:outline-none bg-white "
-              />
+            <Input
+              placeholder="Crop Name (e.g., organic tomatoes)"
+              value={form.name}
+              onChange={(e) => handleChange("name", e.target.value)}
+              className="w-full pl-10 pr-4 py-2 border border-gray-300 text-gray-700 rounded-md shadow-sm focus:ring-2 focus:ring-purple-400 focus:outline-none bg-white "
+            />
             </div>
             {/* Crop Type */}
             <div className="flex flex-col">
               <label className="text-sm font-medium text-gray-600 mb-1">
                 Crop Type
               </label>
-              <Input
-                placeholder="Crop Type (e.g., vegetable)"
-                value={form.type}
-                onChange={(e) => handleChange("type", e.target.value)}
-                className="w-full pl-10 pr-4 py-2 border border-gray-300 text-gray-700 rounded-md shadow-sm focus:ring-2 focus:ring-purple-400 focus:outline-none bg-white "
-              />
+            <Input
+              placeholder="Crop Type (e.g., vegetable)"
+              value={form.type}
+              onChange={(e) => handleChange("type", e.target.value)}
+              className="w-full pl-10 pr-4 py-2 border border-gray-300 text-gray-700 rounded-md shadow-sm focus:ring-2 focus:ring-purple-400 focus:outline-none bg-white "
+            />
             </div>
           </div>
           <div className="grid sm:grid-cols-3 gap-4">
@@ -125,30 +125,18 @@ function CreateCrop({ onAddCrop }) {
                   <SelectValue placeholder="Select Unit" />
                 </SelectTrigger>
                 <SelectContent className="bg-white border border-gray-200">
-                  <SelectItem
-                    value="Kilograms"
-                    className="bg-white text-gray-700 hover:bg-purple-500"
-                  >
-                    Kilograms
-                  </SelectItem>
-                  <SelectItem
-                    value="Pounds"
-                    className="bg-white text-gray-700 hover:bg-purple-500"
-                  >
-                    Pounds
-                  </SelectItem>
-                  <SelectItem
-                    value="Bushels"
-                    className="bg-white text-gray-700 hover:bg-purple-500"
-                  >
-                    Bushels
-                  </SelectItem>
-                  <SelectItem
-                    value="Pieces"
-                    className="bg-white text-gray-700 hover:bg-purple-500"
-                  >
-                    Pieces
-                  </SelectItem>
+                  <SelectItem 
+                  value="Kilograms"
+                  className="bg-white text-gray-700 hover:bg-purple-500">Kilograms</SelectItem>
+                  <SelectItem 
+                  value="Pounds"
+                  className="bg-white text-gray-700 hover:bg-purple-500">Pounds</SelectItem>
+                  <SelectItem 
+                  value="Bushels"
+                  className="bg-white text-gray-700 hover:bg-purple-500">Bushels</SelectItem>
+                  <SelectItem 
+                  value="Pieces"
+                  className="bg-white text-gray-700 hover:bg-purple-500">Pieces</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -166,75 +154,65 @@ function CreateCrop({ onAddCrop }) {
                   <SelectValue placeholder="Select Status" />
                 </SelectTrigger>
                 <SelectContent className="bg-white border border-gray-200">
-                  <SelectItem
-                    value="Planted"
-                    className="bg-white text-gray-700 hover:bg-purple-500"
-                  >
-                    Planted
-                  </SelectItem>
-                  <SelectItem
-                    value="Growing"
-                    className="bg-white text-gray-700 hover:bg-purple-500"
-                  >
-                    Growing
-                  </SelectItem>
-                  <SelectItem
-                    value="Ready to Harvest"
-                    className="bg-white text-gray-700 hover:bg-purple-500"
-                  >
+                  <SelectItem 
+                  value="Planted"
+                  className="bg-white text-gray-700 hover:bg-purple-500">Planted</SelectItem>
+                  <SelectItem 
+                  value="Growing"
+                  className="bg-white text-gray-700 hover:bg-purple-500">Growing</SelectItem>
+                  <SelectItem 
+                  value="Ready to Harvest"
+                  className="bg-white text-gray-700 hover:bg-purple-500">
                     Ready to Harvest
                   </SelectItem>
-                  <SelectItem
-                    value="Harvested"
-                    className="bg-white text-gray-700 hover:bg-purple-500"
-                  >
-                    Harvested
-                  </SelectItem>
+                  <SelectItem 
+                  value="Harvested"
+                  className="bg-white text-gray-700 hover:bg-purple-500">Harvested</SelectItem>
                 </SelectContent>
               </Select>
             </div>
           </div>
 
           {/* Dates */}
-
+          
           <div className="grid sm:grid-cols-2 gap-4">
             <div className="flex flex-col">
               <label className="text-sm font-medium text-gray-600 mb-1">
                 Planted Date
               </label>
-              <Input
-                type="date"
-                value={form.plantedDate}
-                onChange={(e) => handleChange("plantedDate", e.target.value)}
-                className="w-full pl-10 pr-4 py-2 border border-gray-300 text-gray-700 rounded-md shadow-sm focus:ring-2 focus:ring-purple-400 focus:outline-none bg-white"
-              />
+            <Input
+              type="date"
+              value={form.plantedDate}
+              onChange={(e) => handleChange("plantedDate", e.target.value)}
+              className="w-full pl-10 pr-4 py-2 border border-gray-300 text-gray-700 rounded-md shadow-sm focus:ring-2 focus:ring-purple-400 focus:outline-none bg-white"
+            />
             </div>
             <div className="flex flex-col">
               <label className="text-sm font-medium text-gray-600 mb-1">
                 Expected Harvest Date
               </label>
-              <Input
-                type="date"
-                value={form.expectedHarvestDate}
-                onChange={(e) =>
-                  handleChange("expectedHarvestDate", e.target.value)
-                }
-                className="w-full pl-10 pr-4 py-2 border border-gray-300 text-gray-700 rounded-md shadow-sm focus:ring-2 focus:ring-purple-400 focus:outline-none bg-white"
-              />
-            </div>
-            <div className="flex flex-col">
+            <Input
+              type="date"
+              value={form.expectedHarvestDate}
+              onChange={(e) =>
+                handleChange("expectedHarvestDate", e.target.value)
+              }
+              className="w-full pl-10 pr-4 py-2 border border-gray-300 text-gray-700 rounded-md shadow-sm focus:ring-2 focus:ring-purple-400 focus:outline-none bg-white"
+            />
+          </div>
+          <div className="flex flex-col">
               <label className="text-sm font-medium text-gray-600 mb-1">
                 Description
               </label>
-              <Textarea
-                placeholder="Optional notes about the crop..."
-                value={form.discription}
-                onChange={(e) => handleChange("discription", e.target.value)}
-                className="w-full pl-10 pr-4 py-2 border border-gray-300 text-gray-700 rounded-md shadow-sm focus:ring-2 focus:ring-purple-400 focus:outline-none bg-white"
-              />
-            </div>
-          </div>
+          <Textarea
+            placeholder="Optional notes about the crop..."
+            value={form.description}
+            onChange={(e) => handleChange("description", e.target.value)}
+            className="w-full pl-10 pr-4 py-2 border border-gray-300 text-gray-700 rounded-md shadow-sm focus:ring-2 focus:ring-purple-400 focus:outline-none bg-white"
+          />
         </div>
+        </div>
+      </div> 
 
         {/* Submit Button */}
         <div className="flex justify-end gap-4">
@@ -252,6 +230,7 @@ function CreateCrop({ onAddCrop }) {
         </div>
       </DialogContent>
     </Dialog>
+    
   );
 }
 
