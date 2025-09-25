@@ -29,7 +29,7 @@ function AddCrop({ onAddCrop }) {
     status: "",
     plantedDate: "",
     expectedHarvestDate: "",
-    discription: "",
+    description: "",
   });
 
   const handleChange = (field, value) => {
@@ -50,7 +50,7 @@ function AddCrop({ onAddCrop }) {
       status: "",
       plantedDate: "",
       expectedHarvestDate: "",
-      discription: "",
+      description: "",
     });
   };
 
@@ -167,7 +167,8 @@ function AddCrop({ onAddCrop }) {
                   </SelectItem>
                   <SelectItem 
                   value="Harvested"
-                  className="bg-white text-gray-700 hover:bg-emerald-500">Harvested</SelectItem>
+                  className="bg-white text-gray-700 hover:bg-emerald-500">
+                  Harvested</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -206,8 +207,8 @@ function AddCrop({ onAddCrop }) {
               </label>
           <Textarea
             placeholder="Optional notes about the crop..."
-            value={form.discription}
-            onChange={(e) => handleChange("discription", e.target.value)}
+            value={form.description}
+            onChange={(e) => handleChange("description", e.target.value)}
             className="w-full pl-10 pr-4 py-2 border border-gray-300 text-gray-700 rounded-md shadow-sm focus:ring-2 focus:ring-emerald-400 focus:outline-none bg-white"
           />
         </div>
@@ -219,14 +220,12 @@ function AddCrop({ onAddCrop }) {
           <DialogClose asChild>
             <Button className="bg-gray-400 hover:bg-gray-600">Cancel</Button>
           </DialogClose>
-          <DialogClose asChild>
-            <Button
-              onClick={handleSubmit}
-              className="bg-emerald-500 hover:bg-emerald-600 text-white"
-            >
-              Add Crop
-            </Button>
-          </DialogClose>
+          <Button
+            onClick={handleSubmit}
+            className="bg-emerald-400 hover:bg-emerald-600"
+          >
+            Create Crop
+          </Button>
         </div>
       </DialogContent>
     </Dialog>

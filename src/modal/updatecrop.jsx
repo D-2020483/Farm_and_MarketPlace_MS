@@ -20,6 +20,7 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 
+
 function UpdateCrop({ isOpen, onOpenChange, crop, onUpdate }) {
   // Prevent opening the modal for admin-created crops
   useEffect(() => {
