@@ -18,5 +18,5 @@ export default defineConfig({
       include: [/@radix-ui\/react-tooltip/, /node_modules/]
     }
   },
-  base: process.env.VITE_BASE_PATH || "/Farm_and_MarketPlace_MS",
+  base: process.env.VITE_BASE_PATH || '/',
 })
